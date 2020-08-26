@@ -8,6 +8,14 @@ class Despesa{
 		this.valor = valor
 
 	}
+	validarDados(){
+		for(let i in this){
+			if(this[i] == undefined || this[i] == '' || this[i] == null){
+				return false
+			}
+		}
+		return true
+	}
 }
 class Bd{
 
@@ -44,7 +52,16 @@ function cadastrarDespesa(){
 	
 	let despesa = new Despesa(ano.value, mes.value, dia.value, tipo.value, descricao.value, valor.value)
 
-	bd.gravar(despesa)
+	if(despesa.validarDados()){
+		bd.gravar(despesa)
+		//dialogo de sucesso
+		//console.log('Dados validos')
+		$('#sucessoGravacao').modal('show')
+	}else{
+		//erro
+		$('#erroGravacao').modal('show')
+	}
+	
 
 }
 
